@@ -1,3 +1,4 @@
+# Standard Python/IDE/OS files
 .DS_Store
 Thumbs.db
 *.swp
@@ -7,25 +8,37 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Virtual environments
 .venv/
 .env
 
+# Jupyter Notebook files
 .ipynb_checkpoints/
+
+# Caches and built artifacts
 .cache/
 .dist/
 node_modules/
 
-# Datasets and large data
+# ---------------------------------
+# Project-specific rules
+# ---------------------------------
+
+# Ignore all datasets
 NeuroID/Dataset/**
 
-# Trained models and weights
-NeuroID/server/models/**
+# Ignore all contents of the server folder...
+NeuroID/server/*
+
+# ...BUT un-ignore (keep) the app.py file
+!NeuroID/server/app.py
+
+# Ignore trained models and large data files
 *.h5
 *.hdf5
 *.pt
 *.onnx
-
-# Large EEG files outside dataset
 *.edf
 *.dat
 *.hea
@@ -33,7 +46,6 @@ NeuroID/server/models/**
 *.7z
 *.rar
 
-# Logs and local scripts
+# Logs
 *.log
 logs/**
-
