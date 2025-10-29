@@ -1,0 +1,39 @@
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+
+.ipynb_checkpoints/
+.cache/
+.dist/
+node_modules/
+
+# Datasets and large data
+NeuroID/Dataset/**
+
+# Trained models and weights
+NeuroID/server/models/**
+*.h5
+*.hdf5
+*.pt
+*.onnx
+
+# Large EEG files outside dataset
+*.edf
+*.dat
+*.hea
+*.zip
+*.7z
+*.rar
+
+# Logs and local scripts
+*.log
+logs/**
+
