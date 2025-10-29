@@ -10,8 +10,10 @@ __pycache__/
 *.pyd
 
 # Virtual environments
+# Ignore the top-level .venv
 .venv/
-.env
+# Also ignore the .venv inside the server folder
+NeuroID/server/.venv/
 
 # Jupyter Notebook files
 .ipynb_checkpoints/
@@ -34,7 +36,13 @@ NeuroID/server/*
 # ...BUT un-ignore (keep) the app.py file
 !NeuroID/server/app.py
 
-# Ignore trained models and large data files
+# ...BUT un-ignore (keep) the requirements.txt file
+!NeuroID/server/requirements.txt
+
+# Also ignore the models folder inside server
+NeuroID/server/models/**
+
+# Ignore other large data files
 *.h5
 *.hdf5
 *.pt
