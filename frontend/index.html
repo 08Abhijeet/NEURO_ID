@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeuroID | Sign In / Sign Up</title>
+  <style>
+    :root{
+      --bg:#0f1220;--card:#171a2b;--muted:#8a90a8;--text:#e8eaf6;--accent:#6c8cff;--accent-2:#00d4ff;--error:#ff6b6b;
+      --radius:14px;--space:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:radial-gradient(1200px 600px at 20% -10%,#1b2040 0%,transparent 60%),linear-gradient(180deg,#0d1020 0%,#0a0d18 100%);
+      color:var(--text);font:500 15px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+    .container{
+      width:100%;max-width:1100px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:22px;
+    }
+    .panel{
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);box-shadow:0 10px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .header{
+      padding:20px 22px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;gap:10px;align-items:center;justify-content:space-between;
+    }
+    .tabs{display:flex;gap:10px}
+    .tab{
+      appearance:none;border:none;background:transparent;color:var(--muted);padding:10px 14px;border-radius:10px;cursor:pointer;
+      transition:.2s ease;font-weight:600;letter-spacing:.2px;
+    }
+    .tab.active{color:var(--text);background:linear-gradient(180deg,#1d2240,#151936);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    .badge{font-size:12px;color:var(--muted)}
+    .content{padding:22px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .grid.full{grid-template-columns:1fr}
+    label{display:block;font-size:13px;color:#b8bdd3;margin:4px 2px 8px}
+    .input{
+      width:100%;padding:12px 12px 12px 42px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);
+      background:#111425;color:var(--text);outline:none;transition:.2s ease;position:relative;
+    }
+    .input:focus{border-color:var(--accent)}
+    .field{position:relative}
+    .icon{
+      position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:#9aa0b8;pointer-events:none
+    }
+    .note{
+      margin:10px 2px 0;color:var(--muted);font-size:13px;display:flex;gap:8px;align-items:flex-start
+    }
+    .hint{color:#aab2d6}
+    .btn{
+      all:unset;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0a0d18;
+      padding:12px 16px;border-radius:12px;font-weight:800;cursor:pointer;text-align:center
+    }
+    .btn.secondary{background:#1a1f38;color:var(--text);border:1px solid rgba(255,255,255,0.08)}
+    .split{display:flex;gap:12px;margin-top:14px}
+    .divider{height:1px;background:rgba(255,255,255,0.08);margin:18px 0}
+    .subtle{color:var(--muted);font-size:13px}
+    .right{
+      background:
+        radial-gradient(400px 300px at 110% -10%,rgba(108,140,255,.25),transparent 60%),
+        radial-gradient(500px 260px at -10% 120%,rgba(0,212,255,.25),transparent 70%),
+        linear-gradient(180deg,#13172b,#0f1326);
+      display:flex;flex-direction:column;justify-content:center;padding:26px 24px;gap:10px
+    }
+    .hero{font-size:28px;font-weight:900;letter-spacing:.3px;margin:0}
+    .desc{color:#aeb6da;margin:4px 0 14px}
+    .list{display:grid;gap:10px}
+    .item{display:flex;gap:10px;align-items:flex-start;color:#c6ccef;font-size:14px}
+    .dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin-top:6px}
+    .ghost{opacity:.8}
+    @media (max-width: 960px){
+      .container{grid-template-columns:1fr}
+      .right{order:-1}
+    }
+  </style>
+  <link rel="icon" href="data:," />
+  <meta name="color-scheme" content="dark light" />
+</head>
+<body>
+  <div class="container">
+    <div class="panel">
+      <div class="header">
+        <div class="tabs">
+          <button class="tab active" id="tab-signin" aria-selected="true">Sign In</button>
+          <button class="tab" id="tab-signup" aria-selected="false">Sign Up</button>
+        </div>
+        <span class="badge">NeuroID</span>
+      </div>
+
+      <div class="content">
+        <form id="form-signin">
+          <div class="grid full">
+            <div class="field">
+              <span class="icon">📧</span>
+              <label for="signin_email">Email or User ID</label>
+              <input id="signin_email" class="input" type="text" placeholder="you@example.com or user123" required />
+            </div>
+
+            <div class="field">
+              <span class="icon">🧠</span>
+              <label for="signin_eeg">Upload EEG Signal (for authentication)</label>
+              <input id="signin_eeg" class="input" type="file" accept=".csv,.txt,.dat,.edf,.hea" required />
+              <div class="note">
+                <span class="hint">Note:</span>
+                <span class="subtle">Upload a fresh EEG chunk to verify your identity.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="split">
+            <button type="submit" class="btn" style="flex:1;">Authenticate</button>
+            <button type="button" class="btn secondary" style="flex:1;" id="go-signup">Create account</button>
+          </div>
+        </form>
+
+        <form id="form-signup" style="display:none;">
+          <div class="grid">
+            <div class="field">
+              <span class="icon">👤</span>
+              <label for="name">Full Name</label>
+              <input id="name" class="input" type="text" placeholder="Jane Doe" required />
+            </div>
+            <div class="field">
+              <span class="icon">📧</span>
+              <label for="email">Email</label>
+              <input id="email" class="input" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <span class="icon">🔒</span>
+              <label for="password">Password</label>
+              <input id="password" class="input" type="password" placeholder="••••••••" minlength="8" required />
+            </div>
+            <div class="field">
+              <span class="icon">🧠</span>
+              <label for="signup_eeg">Upload EEG Wave Data (training samples)</label>
+              <input id="signup_eeg" class="input" type="file" accept=".csv,.txt,.dat,.edf,.zip" multiple required />
+            </div>
+          </div>
+
+          <div class="note">
+            <span class="hint">Instruction:</span>
+            <span class="subtle">Please upload EEG signals for registration. These samples will be used to train your personal authentication model.</span>
+          </div>
+
+          <div class="divider"></div>
+          <div class="split">
+            <button type="button" class="btn secondary" style="flex:1;" id="go-signin">Back to Sign In</button>
+            <button type="submit" class="btn" style="flex:1;">Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <aside class="panel right">
+      <h1 class="hero">EEG‑Powered Authentication</h1>
+      <p class="desc">Register with your EEG signals once. Sign in by uploading a fresh EEG chunk to verify your identity.</p>
+      <div class="list">
+        <div class="item"><span class="dot"></span><span>Clean, modern, responsive design</span></div>
+        <div class="item"><span class="dot"></span><span>Clear separation of Sign In and Sign Up</span></div>
+        <div class="item"><span class="dot"></span><span>Uploads support CSV / TXT / DAT / EDF</span></div>
+        <div class="item ghost"><span class="dot"></span><span>Server endpoints: POST <code>/api/auth/signup</code>, <code>/api/auth/signin</code></span></div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const tabSignin = document.getElementById('tab-signin');
+    const tabSignup = document.getElementById('tab-signup');
+    const formSignin = document.getElementById('form-signin');
+    const formSignup = document.getElementById('form-signup');
+    const goSignup = document.getElementById('go-signup');
+    const goSignin = document.getElementById('go-signin');
+
+    function activate(tab){
+      const isSignIn = tab === 'in';
+      tabSignin.classList.toggle('active', isSignIn);
+      tabSignup.classList.toggle('active', !isSignIn);
+      tabSignin.setAttribute('aria-selected', String(isSignIn));
+      tabSignup.setAttribute('aria-selected', String(!isSignIn));
+      formSignin.style.display = isSignIn ? '' : 'none';
+      formSignup.style.display = isSignIn ? 'none' : '';
+    }
+    tabSignin.addEventListener('click', () => activate('in'));
+    tabSignup.addEventListener('click', () => activate('up'));
+    goSignup.addEventListener('click', () => activate('up'));
+    goSignin.addEventListener('click', () => activate('in'));
+
+    // Wire to backend
+    formSignup.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData();
+      fd.append('name', document.getElementById('name').value);
+      fd.append('email', document.getElementById('email').value);
+      fd.append('password', document.getElementById('password').value);
+      for (const f of document.getElementById('signup_eeg').files) fd.append('eeg_files', f);
+      try {
+        const res = await fetch('http://localhost:8000/api/auth/signup', { method: 'POST', body: fd });
+        const json = await res.json();
+        alert('Signup response: ' + JSON.stringify(json));
+        activate('in');
+      } catch (err) {
+        alert('Signup error: ' + err);
+      }
+    });
+    formSignin.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData();
+      fd.append('email', document.getElementById('signin_email').value);
+      const f = document.getElementById('signin_eeg').files[0];
+      if (f) fd.append('eeg_file', f);
+      try {
+        const res = await fetch('http://localhost:8000/api/auth/signin', { method: 'POST', body: fd });
+        const json = await res.json();
+        alert('Signin response: ' + JSON.stringify(json));
+      } catch (err) {
+        alert('Signin error: ' + err);
+      }
+    });
+  </script>
+</body>
+</html>
+
+

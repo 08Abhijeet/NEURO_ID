@@ -1,0 +1,10 @@
+{
+  "subject1@example.com": {
+    "name": "Subject 1",
+    "email": "subject1@example.com"
+  },
+  "abhijeet@gmail.com": {
+    "name": "Abhijeet Kadam",
+    "email": "abhijeet@gmail.com"
+  }
+}
